@@ -69,8 +69,7 @@ class BookController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('book_show', ['id' => $book->getId()]);
         }
@@ -78,5 +77,17 @@ class BookController extends AbstractController
         return $this->render('book/new.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete(Book $book)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($book);
+        $em->flush();
+
+        return $this->redirectToRoute("book_index");
     }
 }
