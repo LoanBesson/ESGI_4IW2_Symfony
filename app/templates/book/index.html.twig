@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des livres!{% endblock %}
+
+{% block body %}
+    <h1>Liste des livres <a href="{{ path('book_new') }}" class="btn">Créer</a></h1>
+
+    {% for book in books %}
+        Titre : {{ book.name|capitalize }} <br>
+        Description : {{ book.description ? book.description : 'NC' }}<br>
+        Prix moyen : {{ book.averagePrice ? book.averagePrice : 'NC' }}<br>
+        Date de publication : {{ book.publicationDate ? book.publicationDate|date('d/m/Y') : 'NC' }}<br>
+        <a href="{{ path('book_show', {id: book.id}) }}">Accéder aux informations du livre</a><br>
+        <br>
+    {% endfor %}
+{% endblock %}

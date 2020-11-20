@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information du livre{% endblock %}
+
+{% block body %}
+    <h1>Informations du livre</h1>
+
+    Titre : {{ book.name|capitalize }} <br>
+    Description : {{ book.description ? book.description : 'NC' }}<br>
+    Prix moyen : {{ book.averagePrice ? book.averagePrice : 'NC' }}<br>
+    Date de publication : {{ book.publicationDate ? book.publicationDate|date('d/m/Y') : 'NC' }}<br>
+    <br>
+    <a href="{{ path('book_edit', {id: book.id}) }}" class="btn">Modifier</a>
+{% endblock %}
