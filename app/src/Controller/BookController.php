@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,10 +81,13 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete")
+     * @Route("/delete/{id}/{token}", name="delete")
      */
-    public function delete(Book $book)
+    public function delete(Book $book, $token)
     {
+        if (!$this->isCsrfTokenValid('delete_book' . $book->getId(), $token)){
+            throw new Exception('Invalide Token CSRF');
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($book);
         $em->flush();

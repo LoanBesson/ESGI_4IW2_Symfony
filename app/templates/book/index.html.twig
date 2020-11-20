@@ -10,9 +10,9 @@
         Description : {{ book.description ? book.description : 'NC' }}<br>
         Prix moyen : {{ book.averagePrice ? book.averagePrice : 'NC' }}<br>
         Date de publication : {{ book.publicationDate ? book.publicationDate|date('d/m/Y') : 'NC' }}<br>
-        <a href="{{ path('book_show', {id: book.id}) }}" class="btn">Voir</a>
-        <a href="{{ path('book_edit', {id: book.id}) }}" class="btn">Modifier</a>
-        <a href="{{ path('book_delete', {id: book.id}) }}" class="btn bg-danger">Supprimer</a><br>
+        <a href="{{ path('book_show', {'id': book.id}) }}" class="btn">Voir</a>
+        <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn">Modifier</a>
+        <a href="{{ path('book_delete', {'id': book.id, 'token': csrf_token('delete_book' ~ book.id)}) }}" class="btn red">Supprimer</a><br>
         <br>
     {% endfor %}
 {% endblock %}
